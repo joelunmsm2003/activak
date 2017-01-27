@@ -7,10 +7,10 @@ angular
 
 
 
-function NewuserController($scope,UserService){
+function NewuserController($scope,KineService){
 
 
-	$scope.alumnos = UserService.alumnos()
+	
 
 	$scope.newuser = function(data){
 
@@ -18,5 +18,26 @@ function NewuserController($scope,UserService){
 
 	}
 
+	$scope.createuser = function(data){
+
+		console.log(data)
+
+		KineService.crear(data)
+
+	}
+
+
+
+	KineService.distritos().then(function(data) {
+
+           $scope.distritos = data
+        
+    })
+
+    KineService.listar().then(function(data) {
+
+           console.log(data)
+        
+    })
 
 }

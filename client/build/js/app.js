@@ -58,6 +58,71 @@ function ColegioService ($http,$q,$log,$localStorage) {
 
 
 
+function KineService ($http,$q,$log,$localStorage) {  
+    return {
+        crear: crear,
+        distritos:distritos
+    }
+
+
+
+    function crear(data){
+
+        console.log('ingresar...',data)
+
+        var defered = $q.defer();
+        var promise = defered.promise;
+
+        $http({
+
+        url: host+"kine/",
+        data: data,
+        method: 'POST'
+        }).
+        success(function(data) {
+
+        console.log(data)
+
+        $localStorage.token = data.token;
+
+        return promise;
+
+        })
+
+    }
+
+
+    function distritos() {
+
+            var def = $q.defer();
+
+            $http.get(host+'distritos/').success(function(data) {
+
+                    def.resolve(data);
+                })
+               
+            return def.promise;
+        }
+
+    function listar() {
+
+            var def = $q.defer();
+
+            $http.get(host+'kines/').success(function(data) {
+
+                    def.resolve(data);
+                })
+               
+            return def.promise;
+        }
+
+
+
+}
+
+
+
+
 function UserService ($http,$q,$log,$localStorage) {  
     return {
         ingresar: ingresar,
@@ -126,6 +191,7 @@ angular
 .config(routesConfig)
 .service('UserService', UserService)
 .service('ColegioService', ColegioService)
+.service('KineService', KineService)
 
 function routesConfig($stateProvider, $urlRouterProvider, $locationProvider,$httpProvider) {
 
@@ -231,7 +297,10 @@ angular
   });
 
 
-function ColeController(){
+function ColeController(ColegioServicio){
+
+
+	console.log('cole..',ColegioServicio.alumnos())
 
 }
 
@@ -306,10 +375,10 @@ angular
 
 
 
-function NewuserController($scope,UserService){
+function NewuserController($scope,KineService){
 
 
-	$scope.alumnos = UserService.alumnos()
+	
 
 	$scope.newuser = function(data){
 
@@ -317,6 +386,27 @@ function NewuserController($scope,UserService){
 
 	}
 
+	$scope.createuser = function(data){
+
+		console.log(data)
+
+		KineService.crear(data)
+
+	}
+
+
+
+	KineService.distritos().then(function(data) {
+
+           $scope.distritos = data
+        
+    })
+
+    KineService.listar().then(function(data) {
+
+           console.log(data)
+        
+    })
 
 }
 

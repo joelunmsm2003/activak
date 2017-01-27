@@ -6,6 +6,7 @@ angular
 .config(routesConfig)
 .service('UserService', UserService)
 .service('ColegioService', ColegioService)
+.service('KineService', KineService)
 
 function routesConfig($stateProvider, $urlRouterProvider, $locationProvider,$httpProvider) {
 
