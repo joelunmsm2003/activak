@@ -30,6 +30,7 @@ gulp.task('styles', function() {
 				browsers: ['last 2 versions'],
 				cascade: false
 		}))
+
 		.pipe(gulp.dest('./build/css/'))
 		//.pipe(rename({suffix: '.min'}))
 		//.pipe(cssnano())
@@ -42,10 +43,9 @@ gulp.task('app-js', function() {
 	return gulp.src([	
 		
 	// Grab your custom scripts
-	'app/a1/*.js',
-	'app/app.js',
-
-	'app/**/*.js',
+	'services/*.js',
+	'components/app.js',
+	'components/**/*.js',
 				
 	])
 		.pipe(plumber())
@@ -107,48 +107,24 @@ gulp.task('vendor-js', function() {
 		.pipe(gulp.dest('./build/js'))
 }); 
 
-// Update Foundation with Bower and save to /vendor
-gulp.task('bower', function() {
-	return bower({ cmd: 'update'})
-		.pipe(gulp.dest('./bower_components/'))
-});  
 
-// Browser-Sync watch files and inject changes
-gulp.task('browsersync', function() {
-		// Watch files
-		var files = [
-			'./app/css/*.css', 
-			'./app/js/*.js',
-			'**/*.php',
-			'app/images/**/*.{png,jpg,gif,svg,webp}',
-		];
-
-		browserSync.init(files, {
-			// Replace with URL of your local site
-			proxy: "http://localhost:2000/",
-		});
-		
-		gulp.watch('./app/scss/**/*.scss', ['styles']);
-		gulp.watch('./app/js/scripts/*.js', ['site-js']).on('change', browserSync.reload);
-
-});
 
 // Watch files for changes (without Browser-Sync)
 gulp.task('watch', function() {
 
-	
-	gulp.watch('./app/app.js', ['app-js']);
+	gulp.watch('./components/app.js', ['app-js']);
 
-	gulp.watch('./app/**/*.js', ['app-js']);
+	gulp.watch('./components/**/*.js', ['app-js']);
 
-	gulp.watch('./app/**/*.html', ['html']);
+	gulp.watch('./components/**/*.html', ['html']);
 
-	gulp.watch('./app/**/*.scss', ['styles']);
+	gulp.watch('./components/**/*.scss', ['styles']);
 
 	gulp.watch('./variables.scss', ['styles']);
-
 	
 }); 
+
+
 
 // Run styles, site-js and bootstrap-js
 gulp.task('default', function() {
@@ -177,6 +153,6 @@ gulp.task('translations', function () {
 });
 
 gulp.task('html',function(){
-    gulp.src('./app/**/*.html')
+    gulp.src('./components/**/*.html')
     .pipe(gulp.dest('./build/html'));
 });

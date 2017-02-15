@@ -55,5 +55,9 @@
 @import "bootstrap/utilities";
 @import "bootstrap/responsive-utilities";
 
+// Componentes del sistema
 
-@import "app/home/home";
+@import "components/footer/footer";
+@import "components/formulario/formulario";
+@import "components/header/header";
+@import "components/home/home";

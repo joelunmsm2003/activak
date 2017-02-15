@@ -1,26 +1,4 @@
 
-
-
-
-function UserService ($http,$q,$log,$localStorage) {  
-    return {
-        ingresar: ingresar,
-        alumnos: alumnos
-    }
-
-
-
-
-
-
-
-
-}
-
-
-
-
-
 angular
 
 .module('app', ['ngSanitize','angular-input-stars','rzModule','ui.router','ngStorage','ui.bootstrap','ngAnimate','ngTouch','ngScrollTo','flow','xeditable','ngResource','gettext','ngMap','ngLocale','tmh.dynamicLocale','wyvernzora.un-svg'])
@@ -68,69 +46,6 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider,$htt
 	};
 	}]);
 	*/
-
-
-}
-angular
-  .module('app')
-  .component('foootercomponent', {
-    templateUrl: '../html/footer/footer.html',
-    controller: FooterController
-  });
-
-
-
-function FooterController($scope,$location){
-
-
-}
-
-angular
-  .module('app')
-  .component('formulariocomponent', {
-    templateUrl: '../html/formulario/formulario.html',
-    controller: FormularioController
-  });
-
-
-
-function FormularioController($scope,$location){
-
-	console.log('URL',$location.url())
-
-
-	
-
-}
-
-angular
-  .module('app')
-  .component('headercomponent', {
-    templateUrl: '../html/header/header.html',
-    controller: HeaderController
-  });
-
-
-
-function HeaderController($scope){
-
-
-}
-
-angular
-  .module('app')
-  .component('homecomponent', {
-    templateUrl: '../html/home/home.html',
-    controller: HomeController
-
-  });
-
-
-
-
-
-function HomeController($scope){
-
 
 
 }

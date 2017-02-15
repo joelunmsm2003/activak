@@ -1,0 +1,30 @@
+.flex-container {
+    display: -webkit-flex;
+    display: flex;
+    background-color: #fff;
+    margin:16px;
+
+
+}
+
+.titulo {
+ background-color: #2969a8;
+    width: 18%;
+    padding: 4px;
+    padding-top: -2px;
+    text-align: center;
+    color: #fff;
+    font-size: 21px;
+}
+
+.contenido {
+
+    background-color: #fff;
+    width: 50%;
+    border: 1px solid #2969a8;
+    margin: 0px;
+    margin-right: 16px;
+        padding: 8px;
+  
+}
+
