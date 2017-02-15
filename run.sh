@@ -1,11 +1,9 @@
-killall -9 python
 killall -9 node
-cd /home/andy/proyectos/kine
-python manage.py runserver&
 
-cd /home/andy/proyectos/kinefront/server
+
+cd /home/xiencias02/proyecto/dni/server
 npm start&
 
-cd /home/andy/proyectos/kinefront/client
+cd /home/xiencias02/proyecto/dni/client
 gulp watch&
 
