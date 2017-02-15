@@ -1,5 +1,13 @@
 # Activa Hibrid Project
-Este es un tutorial 
+Este es un aplicacion mobil basada en Angular 1.5 
+ 
+## Estructura
+
+
+
+## Instalacion
+
+##  
 
 
 
