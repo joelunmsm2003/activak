@@ -21,9 +21,16 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider,$htt
 		});
 
 
-	host = 'http://localhost:8000/'
+	host = 'http://localhost'
 
-	$locationProvider.html5Mode(true);
+	//$locationProvider.html5Mode(true);
+
+	$httpProvider.defaults.useXDomain = true;
+	$httpProvider.defaults.withCredentials = true;
+	delete $httpProvider.defaults.headers.common["X-Requested-With"];
+	$httpProvider.defaults.headers.common["Accept"] = "application/json";
+	$httpProvider.defaults.headers.common["Content-Type"] = "application/json";
+
 
 	/*
 
@@ -49,3 +56,5 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider,$htt
 
 
 }
+
+	

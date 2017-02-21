@@ -1,155 +1,134 @@
-<div class='container'>
 
 
 
 
-		<div class="flex-container">
+ 						<div class='row'>
 
-			<div class='titulo'>Campaña</div>
-			<div class="contenido">flex item 2</div>
-			<div class='titulo'> Agente</div>
-			<div class="contenido">flex item 3</div>
-
-		</div>
+ 						<div class='col-md-6'>
+	
+								<legend>DATOS PERSONALES</legend>
 
 
-
-		<div class="col-md-6">
-
-					<legend>DATOS PERSONALES</legend>
-
-					<div class="form-group">
-						<label for="nombre">Nombre</label>
-						<input required type="text" class="form-control"  ng-model='agente.nombre'  id="nombre">
-					</div>
+								<div class="form-group">
+									<label for="nombre">Nombre</label>
+									<input required type="text" class="form-control"  ng-model='agente.NOMBRE'  id="nombre">
+								</div>
 
 
-					<div class="form-group">
-						<label for="dni">DNI</label>
-						<input required type="text" class="form-control"  ng-model='agente.dni'  id="dni">
-					</div>
+								<div class="form-group">
+									<label for="dni">DNI</label>
+									<input required type="text" class="form-control"  ng-model='agente.DNI'  id="dni">
+								</div>
 
-					<div class="form-group">
-						<label for="direccion">Direccion</label>
-						<input required type="text" class="form-control"  ng-model='agente.direccion' id="direccion" >
-					</div>
+								<div class="form-group">
+									<label for="direccion">Direccion</label>
+									<input required type="text" class="form-control"  ng-model='agente.DIRECCION' id="direccion" >
+								</div>
 
-					<div class="form-group">
-						<label for="distrito">Distrito</label>
+								<div class="form-group">
+									<label for="distrito">Distrito</label>
 
-						<input required type="text" class="form-control"  ng-model='agente.distrito' id="distrito" >
+									<input required type="text" class="form-control"  ng-model='agente.DISTRITO' id="distrito" >
 
-					</div>
+								</div>
 
-					<div class="form-group">
-						<label for="departamento">Departamento</label>
-						<input required type="text" class="form-control"  ng-model='agente.departamento' id="departamento" >
-					</div>
+								<div class="form-group">
+									<label for="departamento">Departamento</label>
+									<input required type="text" class="form-control"  ng-model='agente.DEPARTAMENTO' id="departamento" >
+								</div>
 
-					<div class="form-group">
-						<label for="correo">Correo Electronico</label>
-						<input required type="text" class="form-control"  ng-model='agente.correo' id="correo" >
-					</div>
+								<div class="form-group">
+									<label for="correo">Correo Electronico</label>
+									<input required type="text" class="form-control"  ng-model='agente.MAIL' id="correo" >
+								</div>
 
-					<div class="form-group">
-						<label for="nacimiento">Fecha de Nacimiento</label>
-						<input required type="text" class="form-control"  ng-model='agente.nacimiento' id="nacimiento" >
-					</div>
+								<div class="form-group">
+									<label for="nacimiento">Fecha de Nacimiento</label>
+									<input required type="text" class="form-control"  ng-model='agente.FECHA_NACIMIENTO' id="nacimiento" >
+								</div>
 
-					
+						</div>
 
-				</form>
-
-		</div>
-
-		<div class='col-md-6'>
-
-
-					<legend>DATOS DEL SEGURO </legend>
-
-					<div class="form-group">
-						<label for="fechaventa">Fecha de venta</label>
-						<input required type="text" class="form-control"  ng-model='agente.fechaventa'  id="fechaventa">
-					</div>
-
-					<div class="form-group">
-						<label for="campania">Campaña</label>
-						<input required type="text" class="form-control"  ng-model='agente.campania' id="campania" >
-					</div>
-
-					<div class="form-group">
-						<label for="preciocoberturaplancobertura">Precio</label>
 						
+						<div class='col-md-6'>
+			
 
-						<input required typepreciocoberturaplancobertura="text" class="form-control"  ng-model='agente.preciocoberturaplancobertura' id="preciocoberturaplancobertura" >
-					</div>
+								<legend>DATOS DEL SEGURO </legend>
 
-					<div class="form-group">
-						<label for="cobertura">Cobertura</label>
-						<input disabled required type="text" class="form-control"  ng-model='user.cobertura' id="cobertura" >
-					</div>
+								<div class="form-group">
+									<label for="fechaventa">Fecha de venta</label>
+									<input required type="text" class="form-control"  ng-model='agente.FECHA'  id="fechaventa">
+								</div>
 
-					<div class="form-group">
-						<label for="plancobertura">Plan de Cobertura</label>
-						<input required type="text" class="form-control"  ng-model='user.plancobertura' id="plancobertura" >
-					</div>
+								
 
-					<div class="form-group">
-						<label for="afiliado">Cantidad de Afiliados</label>
-						<input required type="text" class="form-control"  ng-model='user.afiliado' id="afiliado" afiliado>
-					</div>
+								<div class="form-group">
+									<label for="preciocoberturaplancobertura">Precio</label>
+									
 
-					<div class="form-group">
-						<label for="tipotarjetatipoenvio">Tipo de Tarjeta</label>
-						<input required type="text" class="form-control"  ng-model='user.tipotarjetatipoenvio' id="tipotarjetatipoenvio" >
-					</div>
+									<input required typepreciocoberturaplancobertura="text" class="form-control"  ng-model='agente.TODO_PRIMA' id="preciocoberturaplancobertura" >
+								</div>
 
-					<div class="form-group">
-						<label for="tipoenvio">Tipo de Envio</label>
-						<input required type="text" class="form-control"  ng-model='user.tipoenvio' id="tipoenvio" >
-					</div>
+								<div class="form-group">
+									<label for="cobertura">Cobertura</label>
+									<input disabled required type="text" class="form-control"  ng-model='agente.COBERTURA' id="cobertura" >
+								</div>
 
-					<div class="form-group">
-						<label for="comercial">Comercial</label>
-						<input required type="text" class="form-control"  ng-model='user.comercial' id="comercial" >
-					</div>
+								<div class="form-group">
+									<label for="plancobertura">Plan de Cobertura</label>
+									<input required type="text" class="form-control"  ng-model='agente.PLAN_COBERTURA' id="plancobertura" >
+								</div>
 
+								<div class="form-group">
+									<label for="afiliado">Cantidad de Afiliados</label>
+									<input required type="text" class="form-control"  ng-model='agente.CANT_AFILIADOS' id="afiliado" afiliado>
+								</div>
 
+								<div class="form-group">
+									<label for="tipotarjetatipoenvio">Tipo de Tarjeta</label>
+									<input required type="text" class="form-control"  ng-model='agente.TIPO_TARJETA' id="tipotarjetatipoenvio" >
+								</div>
 
-		</div>
+								<div class="form-group">
+									<label for="tipoenvio">Tipo de Envio</label>
+									<input required type="text" class="form-control"  ng-model='agente.TIPO_ENVIO' id="tipoenvio" >
+								</div>
 
-		<div class="row">
-
-			<div class='col-md-12'>
-
-			HISTORIAL DE LLAMADA
-
-			</div>
-
-
-		</div>
-
-		<div class="row">
-
-			<div class='col-md-12'>
-
-			OBSERVACIONES
-
-			</div>
+								<div class="form-group">
+									<label for="comercial">Comercial</label>
+									<input required type="text" class="form-control"  ng-model='agente.COMERCIAL' id="comercial" >
+								</div>
 
 
-		</div>
+						</div>
 
-		<div class="row">
+						</div>
 
-			<div class='col-md-12'>
+			<legend><i class="fa fa-phone-square" aria-hidden="true"></i> HISTORIAL DE LLAMADAS</legend>
 
-			RESOLUCION DE LLAMADA
+			<table class="table table-condensed table-hover">
+				<thead>
+					<tr>
+						<th>Telefono</th>
+						<!-- <th>Orden</th> -->
+						<th>Tipo de Contacto</th>
+						<th>Accion</th>
+						<th>Estado</th>
+						<th>Observacion</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="x in llamadas">
+						<td>{{x.telefono}}</td>
+						<!-- <td>{{x.orden}}</td> -->
+						<td>{{x.contacto}}</td>
+						<td>{{x.accion}}</td>
+						<td>{{x.estado}}</td>
+						<td>{{x.observacion}}</td>
+				
 
-			</div>
-
-
-		</div>
-
-</div>
+					</tr>
+				</tbody>
+			</table>
+	
 

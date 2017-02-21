@@ -31,7 +31,8 @@ gulp.task('styles', function() {
 				cascade: false
 		}))
 
-		.pipe(gulp.dest('./build/css/'))
+		//.pipe(gulp.dest('./build/css/'))
+		.pipe(gulp.dest('/var/www/html/css/'))
 		//.pipe(rename({suffix: '.min'}))
 		//.pipe(cssnano())
 		//.pipe(sourcemaps.write('.')) // Creates sourcemaps for minified styles
@@ -53,7 +54,8 @@ gulp.task('app-js', function() {
 		.pipe(jshint())
 		.pipe(jshint.reporter('jshint-stylish'))
 		.pipe(concat('app.js'))
-		.pipe(gulp.dest('./build/js'))
+		//.pipe(gulp.dest('./build/js'))
+		.pipe(gulp.dest('/var/www/html/js/'))
 		//.pipe(rename({suffix: '.min'}))
 		//.pipe(uglify({mangle: false}))
 		//.pipe(sourcemaps.write('.')) // Creates sourcemap for minified JS
@@ -104,7 +106,8 @@ gulp.task('vendor-js', function() {
 		.pipe(rename({suffix: '.min'}))
 		.pipe(uglify())
 		.pipe(sourcemaps.write('.')) // Creates sourcemap for minified JS
-		.pipe(gulp.dest('./build/js'))
+		//.pipe(gulp.dest('./build/js'))
+		.pipe(gulp.dest('/var/www/html/js/'))
 }); 
 
 
@@ -154,5 +157,6 @@ gulp.task('translations', function () {
 
 gulp.task('html',function(){
     gulp.src('./components/**/*.html')
-    .pipe(gulp.dest('./build/html'));
+    //.pipe(gulp.dest('./build/html'));
+    .pipe(gulp.dest('/var/www/html/html'));
 });

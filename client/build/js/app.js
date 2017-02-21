@@ -43,9 +43,16 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider,$htt
 		});
 
 
-	host = 'http://localhost:8000/'
+	host = 'http://localhost'
 
-	$locationProvider.html5Mode(true);
+	//$locationProvider.html5Mode(true);
+
+	$httpProvider.defaults.useXDomain = true;
+	$httpProvider.defaults.withCredentials = true;
+	delete $httpProvider.defaults.headers.common["X-Requested-With"];
+	$httpProvider.defaults.headers.common["Accept"] = "application/json";
+	$httpProvider.defaults.headers.common["Content-Type"] = "application/json";
+
 
 	/*
 
@@ -71,6 +78,9 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider,$htt
 
 
 }
+
+	
+
 angular
   .module('app')
   .component('foootercomponent', {
@@ -94,9 +104,36 @@ angular
 
 
 
-function FormularioController($scope,$location){
+function FormularioController($scope,$location,$http){
 
-	console.log('URL',$location.url())
+
+
+		// Saca de la URL solo el DNI
+
+		url = $location.url()
+
+		dni = url.split('=')
+
+		var formData = { dni: dni };
+
+		var postData = 'myData='+JSON.stringify(formData);
+
+		$http({
+
+		method : 'POST',
+		url : host+'/gestion.php',
+		data: postData,
+		headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
+
+		}).success(function(res){
+		console.log(res);
+
+		}).error(function(error){
+		console.log(error);
+		});
+
+
+
 
 
 	
@@ -129,7 +166,8 @@ angular
 
 
 
-function HomeController($scope){
+function HomeController($scope,$location,$http){
+
 
 
 
