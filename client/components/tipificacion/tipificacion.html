@@ -21,7 +21,7 @@
 										class='form-control'
 								        ng-model="selected_id" 
 								        ng-options="o.id as o.nombre for o in listaaciones" 
-								        ng-change="selected(selected_id)">
+								        ng-change="traeestados(selected_id)">
 								</select>
 
 								</div>
@@ -39,4 +39,56 @@
 											  ></select>
 
 								</div>
+
+
+								
+									<div class="form-group"> 
+
+									<div class="btn-group">
+									  <button type="button" class="btn btn-default" ng-click='muestraagendar=true;muestrafono=false'>Agendar</button>
+									  <button type="button" ng-click='muestrafono=true;muestraagendar=false' class="btn btn-default">Agregar Telefono</button>
+								
+									</div>
+
+									</div>
+									
+
+
+									<div class="form-group">
+
+									<label ng-show='muestraagendar' for="estado"><i class="fa fa-calendar" aria-hidden="true"></i> Agendar</label>
+
+
+								   <div ng-show='muestraagendar' class="form-group">
+								        <p class="input-group">
+								          <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" ng-change='agendar(dt)' is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+								          <span class="input-group-btn">
+								            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+								          </span>
+								        </p>
+								      </div>
+
+								    </div>
+
+								     <div class="form-group">
+
+
+									<div ng-show='muestraagendar && muestratime' uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div>
+
+									</div>
+
+									<div ng-show='muestrafono' class="form-group">
+
+
+									<label for="estado"><i class="fa fa-phone-square" aria-hidden="true"></i> Telefono Adicional</label>
+									<input ng-model='phone' class='form-control' placeholder="Telefono Adicional" />
+
+									</div>
+
+
+								  
+
+								   
+									</div>
+							
 

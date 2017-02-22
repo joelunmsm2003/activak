@@ -1,23 +1,25 @@
 angular
   .module('app')
-  .component('formulariocomponent', {
-    templateUrl: '../html/formulario/formulario.html',
-    controller: FormularioController
+  .component('llamadascomponent', {
+    templateUrl: '../html/llamadas/llamadas.html',
+    controller: LlamadasController
+
   });
 
 
 
-function FormularioController($scope,$location,$http){
 
 
+function LlamadasController($scope,$location,$http){
 
-		// Saca de la URL solo el DNI
 
-		url = $location.url()
+        // Saca de la URL solo el DNI
+
+        url = $location.url()
 
         console.log('url.....',url.split('&')[0].split('=')[1])
 
-		dni = url.split('&')[0].split('=')[1]
+        dni = url.split('&')[0].split('=')[1]
 
 
 
@@ -56,7 +58,7 @@ function FormularioController($scope,$location,$http){
 
                 }).success(function(res){
 
-                console.log('llamadas..ooo..',res);
+                console.log('llamadas..heheh..',res);
 
                 $scope.llamadas = res
 
@@ -66,8 +68,5 @@ function FormularioController($scope,$location,$http){
 
         })
 
-
-
-	
 
 }

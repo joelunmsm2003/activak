@@ -5,12 +5,16 @@
 <div class='container'>
 
 
-<div class="flex-container">
+<div class='search' data-toggle="modal" data-target="#myModal">
+<span > <h5><i class="fa fa-search" aria-hidden="true"></i> Busqueda</h5></span>
+</div>
 
-			<div class='titulo'>Campaña</div>
-			<div class="contenido">{{agente.CAMPANA}}</div>
+<div class="flex-container paralelogramo">
+
+			<div class='titulo '>Campaña</div>
+			<div class="contenido ">{{agente.CAMPANA}}</div>
 			<div class='titulo'> Agente</div>
-			<div class="contenido">-</div>
+			<div class="contenido">{{agentereal.nombre_agente}}</div>
 
 		</div>
 
@@ -20,8 +24,6 @@
 
 			<formulariocomponent></formulariocomponent>
 
-			
-
 			</div>
 
 			<div class='col-md-4'>
@@ -30,8 +32,79 @@
 
 			</div>
 
-		
+			<div class='col-md-12'>
+
+			<llamadascomponent></llamadascomponent>
+
+			</div>
 
 		</div>
 
 </div>
+
+
+
+<!-- Modal -->
+	<div id="myModal" class="modal fade" role="dialog">
+	  <div class="modal-dialog modal-lg">
+
+
+
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">&times;</button>
+	        <h4 class="modal-title">Ingrese Datos</h4>
+	      </div>
+	      <div class="modal-body">
+	       	
+
+	       		<div class="form-group">
+					<label for="nombre">DNI</label>
+					<input required type="text" class="form-control" ng-change='searchdni(dni)' ng-model='dni'  id="nombre">
+				</div>
+
+				<table class="table table-condensed table-hover">
+				<thead>
+					<tr>
+
+						<th>ID</th>
+						<th>Telefono</th>
+						<!-- <th>Orden</th> -->
+						<!--<th>Tipo de Contacto</th>
+					 	<th>Accion</th>
+						<th>Estado</th>
+						<th>Observacion</th> 
+						<th>Fecha Agenda</th>-->
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="x in registros">
+						<td>{{x.id_orig_base}}</td>
+						<td>{{x.telefono}}</td>
+						<!-- <td>{{x.orden}}</td> -->
+						<!--<td>{{x.contacto}}</td>
+						<td>{{x.accion}}</td>
+						 <td>{{x.estado}}</td>
+						<td>{{x.observacion}}</td>
+						<td>{{x.fagenda}}</td> -->
+
+						<td><a class='btn btn-primary' ng-click='go(x)'>Ver </a></td>
+				
+
+					</tr>
+				</tbody>
+			</table>
+
+
+
+
+
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+
+	  </div>
+	</div>
