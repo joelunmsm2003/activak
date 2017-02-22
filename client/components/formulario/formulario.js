@@ -1,7 +1,7 @@
 angular
   .module('app')
   .component('formulariocomponent', {
-    templateUrl: '../html/formulario/formulario.html',
+    templateUrl: '/calidad/html/formulario/formulario.html',
     controller: FormularioController
   });
 

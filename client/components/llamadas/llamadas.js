@@ -1,7 +1,7 @@
 angular
   .module('app')
   .component('llamadascomponent', {
-    templateUrl: '../html/llamadas/llamadas.html',
+    templateUrl: '/calidad/html/llamadas/llamadas.html',
     controller: LlamadasController
 
   });

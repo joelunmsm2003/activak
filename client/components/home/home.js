@@ -1,7 +1,7 @@
 angular
   .module('app')
   .component('homecomponent', {
-    templateUrl: '../html/home/home.html',
+    templateUrl: '/calidad/html/home/home.html',
     controller: HomeController
 
   });

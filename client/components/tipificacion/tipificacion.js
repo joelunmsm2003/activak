@@ -1,7 +1,7 @@
 angular
   .module('app')
   .component('tipificacioncomponent', {
-    templateUrl: '../html/tipificacion/tipificacion.html',
+    templateUrl: '/calidad/html/tipificacion/tipificacion.html',
     controller: TipificacionController
 
   });
