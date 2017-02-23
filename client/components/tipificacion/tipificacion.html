@@ -3,13 +3,13 @@
 
 								<div class="form-group">
 									<label for="nombre">Observacion</label>
-									<textarea ng-change='setobservacion(observacion)' required type="text" rows="6" class="form-control"  ng-model='observacion'  id="nombre"></textarea> 
+									<textarea ng-change='setobservacion(baseresult.observacion)' required type="text" rows="6" class="form-control"  ng-model='baseresult.observacion'  id="nombre"></textarea> 
 								</div>
 
 
 								<div class="form-group">
 									<label for="nombre">Contacto</label>
-									<select ng-change='traeacciones(contactos)' class='form-control' ng-options="item.id as item.nombre for item in contacto track by item.id" ng-model="contactos"></select>
+									<select ng-change='traeacciones(baseresult.contacto)' class='form-control' ng-options="item.id as item.nombre for item in contacto track by item.id" ng-model="baseresult.contacto"></select>
 
 								</div>
 
@@ -19,9 +19,9 @@
 
 								<select 
 										class='form-control'
-								        ng-model="selected_id" 
+								        ng-model="baseresult.accion" 
 								        ng-options="o.id as o.nombre for o in listaaciones" 
-								        ng-change="traeestados(selected_id)">
+								        ng-change="traeestados(baseresult.accion)">
 								</select>
 
 								</div>
@@ -33,9 +33,9 @@
 
 									<label for="estado">Estados</label>
 									<select   class='form-control' 
-											  ng-model="modelestado"
+											  ng-model="baseresult.estado"
 											  ng-options="p.id as p.nombre for p in estados" 
-											  ng-change="setestado(modelestado)"
+											  ng-change="setestabaseresultdo(baseresult.estado)"
 											  ></select>
 
 								</div>

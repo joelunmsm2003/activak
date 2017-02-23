@@ -13,6 +13,7 @@ angular
 function HomeController($scope,$location,$http){
 
 
+        console.log('Tipi...')
 
 		url = $location.url()
 
@@ -33,7 +34,7 @@ function HomeController($scope,$location,$http){
         $http({
 
         method : 'POST',
-        url : '/gestion.php',
+        url : host+'/gestion.php',
         data: postData,
         headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
 
@@ -52,7 +53,7 @@ function HomeController($scope,$location,$http){
         $http({
 
         method : 'POST',
-        url : '/base.php',
+        url : host+'/base.php',
         data: postData,
         headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
 
@@ -68,6 +69,9 @@ function HomeController($scope,$location,$http){
         $scope.searchdni =function(data){
 
 
+                
+
+
                 var formData = { dni: data };
 
                 var postData = 'myData='+JSON.stringify(formData);
@@ -76,7 +80,7 @@ function HomeController($scope,$location,$http){
                 $http({
 
                 method : 'POST',
-                url : '/dni.php',
+                url : host+'/llamadas.php',
                 data: postData,
                 headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
 
@@ -91,13 +95,20 @@ function HomeController($scope,$location,$http){
 
         }
 
+        
+
         $scope.go=function(data){
 
-            console.log('pruebas...',data)
+            console.log('ererer...',data)
 
                $('#myModal').modal('hide');
 
-            window.location.href='#/home?dni='+data.cliente+'&'+'base='+data.id_orig_base
+               
+
+               
+            window.location.href='http://localhost/calidad/#/home?dni='+data.cliente+'&'+'base='+data.id_orig_base
+
+            location.reload()
         }
 
 

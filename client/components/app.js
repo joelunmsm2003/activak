@@ -21,7 +21,7 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider,$htt
 		});
 
 
-	host = 'http://localhost'
+	host = 'http://localhost/calidad/controllers'
 
 	//$locationProvider.html5Mode(true);
 

@@ -3,6 +3,7 @@ angular
   .component('tipificacioncomponent', {
     templateUrl: '/calidad/html/tipificacion/tipificacion.html',
     controller: TipificacionController
+  
 
   });
 
@@ -15,11 +16,38 @@ function TipificacionController($scope,$location,$http,$log){
 
           // Saca de la URL solo el DNI
 
+          $scope.pasabase = this.pasabase
+
+          console.log('Tipificando.......',this.pasabase)
+
     url = $location.url()
 
     $scope.base = url.split('&')[1].split('=')[1]
 
     console.log('base..',$scope.base)
+
+    var formData = { base: $scope.base };
+
+    var postData = 'myData='+JSON.stringify(formData);
+
+    $http({
+
+    method : 'POST',
+    url : host+'/obtienebase.php',
+    data: postData,
+    headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
+
+    }).success(function(res){
+
+
+      console.log('Resultado..',res)
+
+
+      $scope.baseresult = res[0]
+
+    
+
+    })
 
 
 
@@ -60,7 +88,7 @@ function TipificacionController($scope,$location,$http,$log){
             $http({
 
             method : 'POST',
-            url : '/tipifica.php',
+            url : host+'/tipifica.php',
             data: postData,
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
 
@@ -77,7 +105,7 @@ function TipificacionController($scope,$location,$http,$log){
     $scope.setobservacion = function(data){
 
 
-      console.log('obs',data)
+      console.log('obs....',data)
 
             var formData = { observacion: data ,base:$scope.base};
 
@@ -86,7 +114,7 @@ function TipificacionController($scope,$location,$http,$log){
             $http({
 
             method : 'POST',
-            url : '/observacion.php',
+            url : host+'/observacion.php',
             data: postData,
             headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
 
@@ -128,7 +156,7 @@ function TipificacionController($scope,$location,$http,$log){
                       $http({
 
                           method : 'POST',
-                          url : '/estados.php',
+                          url : host+'/estados.php',
                           data: postData,
                           headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
 
@@ -157,7 +185,7 @@ function TipificacionController($scope,$location,$http,$log){
                       $http({
 
                           method : 'POST',
-                          url : '/accion.php',
+                          url : host+'/accion.php',
                           data: postData,
                           headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
 
@@ -304,7 +332,7 @@ function TipificacionController($scope,$location,$http,$log){
                 $http({
 
                 method : 'POST',
-                url : '/agendar.php',
+                url : host+'/agendar.php',
                 data: postData,
                 headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
 
@@ -323,9 +351,38 @@ function TipificacionController($scope,$location,$http,$log){
   };
 
 
+         $scope.searchdni =function(data){
 
 
+                
 
+
+                var formData = { dni: data };
+
+                var postData = 'myData='+JSON.stringify(formData);
+
+
+                $http({
+
+                method : 'POST',
+                url : host+'/llamadas.php',
+                data: postData,
+                headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
+
+                }).success(function(res){
+
+                    $scope.registros = res
+
+                    console.log('dnis.....',$scope.registros)
+
+                })
+
+
+        }
+
+      
+
+    
    
 
 

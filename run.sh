@@ -1,9 +1,6 @@
 killall -9 node
 
 
-cd /home/xiencias02/proyecto/dni/server
-npm start&
-
-cd /home/xiencias02/proyecto/dni/client
+cd /home/joel/proyectos/activak/client
 gulp watch&
 

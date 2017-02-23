@@ -24,49 +24,26 @@ function LlamadasController($scope,$location,$http){
 
 
 
-        var formData = { dni: dni };
-
-        var postData = 'myData='+JSON.stringify(formData);
-
-
-        $http({
-
-        method : 'POST',
-        url : '/gestion.php',
-        data: postData,
-        headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
-
-        }).success(function(res){
-
-            console.log('user....',res);
-
-            console.log('id....',res.id)
-
-            $scope.agente = res
-
-
-                var formData = { id: res.id };
+                var formData = { dni: dni };
 
                 var postData = 'myData='+JSON.stringify(formData);
 
                 $http({
 
                 method : 'POST',
-                url : '/llamadas.php',
+                url : host+'/llamadas.php',
                 data: postData,
                 headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
 
                 }).success(function(res){
 
-                console.log('llamadas..heheh..',res);
+                console.log('llamadas..',res);
 
                 $scope.llamadas = res
 
 
                 })
 
-
-        })
 
 
 }

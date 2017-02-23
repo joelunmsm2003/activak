@@ -28,7 +28,7 @@
 
 			<div class='col-md-4'>
 
-			<tipificacioncomponent ></tipificacioncomponent>
+			<tipificacioncomponent pasabase='pasabase'></tipificacioncomponent>
 
 			</div>
 
@@ -64,37 +64,36 @@
 					<input required type="text" class="form-control" ng-change='searchdni(dni)' ng-model='dni'  id="nombre">
 				</div>
 
-				<table class="table table-condensed table-hover">
-				<thead>
-					<tr>
 
-						<th>ID</th>
-						<th>Telefono</th>
-						<!-- <th>Orden</th> -->
-						<!--<th>Tipo de Contacto</th>
-					 	<th>Accion</th>
-						<th>Estado</th>
-						<th>Observacion</th> 
-						<th>Fecha Agenda</th>-->
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="x in registros">
-						<td>{{x.id_orig_base}}</td>
-						<td>{{x.telefono}}</td>
-						<!-- <td>{{x.orden}}</td> -->
-						<!--<td>{{x.contacto}}</td>
-						<td>{{x.accion}}</td>
-						 <td>{{x.estado}}</td>
-						<td>{{x.observacion}}</td>
-						<td>{{x.fagenda}}</td> -->
 
-						<td><a class='btn btn-primary' ng-click='go(x)'>Ver </a></td>
-				
+			<ul class="list-group" >
+			  
+			  <li ng-click='go(x)' class="list-group-item" ng-repeat="x in registros">
 
-					</tr>
-				</tbody>
-			</table>
+			  <div class='row'>
+			  <div class='col-md-2'>
+			  {{x.telefono}} 
+			  </div>
+
+			  <div class='col-md-3'>
+			   {{x.contacto}}  
+			  </div>
+
+			  <div class='col-md-2'>
+			  {{x.accion}}   
+			  </div>
+
+			  <div class='col-md-3'>
+			  {{x.estado}}   
+			  </div>
+
+
+
+
+			  </li>
+
+		
+			</ul>
 
 
 
