@@ -2,7 +2,10 @@ angular
   .module('app')
   .component('tipificacioncomponent', {
     templateUrl: '/calidad/html/tipificacion/tipificacion.html',
-    controller: TipificacionController
+    controller: TipificacionController,
+    bindings: {
+        pasabase: '='
+    }
   
 
   });
@@ -14,17 +17,26 @@ angular
 function TipificacionController($scope,$location,$http,$log){
 
 
-          // Saca de la URL solo el DNI
+    ctrl = this
 
-          $scope.pasabase = this.pasabase
 
-          console.log('Tipificando.......',this.pasabase)
+    console.log('Tipificando.......',this.pasabase)
 
     url = $location.url()
 
     $scope.base = url.split('&')[1].split('=')[1]
 
     console.log('base..',$scope.base)
+
+    $http.get(host+"/contacto.php/").success(function(data) {
+
+    $scope.contacto = data
+
+    });
+
+
+
+
 
     var formData = { base: $scope.base };
 
@@ -40,13 +52,17 @@ function TipificacionController($scope,$location,$http,$log){
     }).success(function(res){
 
 
-      console.log('Resultado..',res)
+            $scope.baseresult = res[0]
 
+            $http.get(host+"/contacto.php/").success(function(data) {
 
-      $scope.baseresult = res[0]
-
+                  $scope.contacto = data
     
+            });
 
+
+            // console.log('contacto',$scope.baseresult.contacto)
+  
     })
 
 
@@ -55,7 +71,7 @@ function TipificacionController($scope,$location,$http,$log){
 
     $scope.tipifica =function(tipo,data,base){
 
-      console.log('tipifica..',tipo,data)
+      console.log('tipifica.....',tipo,data,base)
 
       $scope.tip = {}
 
@@ -105,7 +121,7 @@ function TipificacionController($scope,$location,$http,$log){
     $scope.setobservacion = function(data){
 
 
-      console.log('obs....',data)
+      console.log('obs....',data,ctrl)
 
             var formData = { observacion: data ,base:$scope.base};
 
@@ -133,15 +149,7 @@ function TipificacionController($scope,$location,$http,$log){
 
 
 
-          $http.get(host+"/contacto.php/").success(function(data) {
-
-            console.log('contacto',data)
-
-            $scope.contacto = data
-
-          });
-
-
+      
 
         $scope.traeestados =function(data){
 
@@ -165,6 +173,10 @@ function TipificacionController($scope,$location,$http,$log){
                           $scope.estados = res
 
                           console.log('accion',res)
+
+                            
+
+                      
 
                       })
 

@@ -23,6 +23,8 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider,$htt
 
 	host = 'http://localhost/calidad/controllers'
 
+	host_primary = 'http//localhost'
+
 	//$locationProvider.html5Mode(true);
 
 	$httpProvider.defaults.useXDomain = true;

@@ -1,28 +1,47 @@
-<headercomponent></headercomponent>
 
-	 	
  
 <div class='container'>
 
+<br>
 
-<div class='search' data-toggle="modal" data-target="#myModal">
-<span > <h5><i class="fa fa-search" aria-hidden="true"></i> Busqueda</h5></span>
-</div>
 
-<div class="flex-container paralelogramo">
+		<div class='row'>
 
-			<div class='titulo '>Campaña</div>
-			<div class="contenido ">{{agente.CAMPANA}}</div>
-			<div class='titulo'> Agente</div>
-			<div class="contenido">{{agentereal.nombre_agente}}</div>
+		<div class='col-md-8'>
+			
+				<div class="flex-container paralelogramo">
+
+					<div class='titulo '>Campaña</div>
+					<div class="contenido ">{{agente.CAMPANA}}</div>
+					<div class='titulo'> Agente</div>
+
+					<!-- <div class="contenido">{{agentereal.nombre_agente}}</div> -->
+
+					<div ng-if='nomagente' class='contenido'>{{nomagente}}</div>
+
+				</div>
+		
+		</div>
+
+		<div class='col-md-4'>
+
+
+				<div class='btn btn-default' data-toggle="modal" data-target="#myModal">
+				<span > <h5><i class="fa fa-search" aria-hidden="true"></i> Busqueda por DNI</h5></span>
+				</div>
+
 
 		</div>
+
+		</div>
+
+		<hr></hr>
 
 		<div class='row'>
 
 			<div class='col-md-8'>
 
-			<formulariocomponent></formulariocomponent>
+			<formulariocomponent on-delete="$ctrl.deleteHero(hero)"></formulariocomponent>
 
 			</div>
 
@@ -54,32 +73,48 @@
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal">&times;</button>
-	        <h4 class="modal-title">Ingrese Datos</h4>
+	        <h4 class="modal-title">INGRESE DNI </h4>
 	      </div>
+
+	      
 	      <div class="modal-body">
 	       	
 
 	       		<div class="form-group">
-					<label for="nombre">DNI</label>
+					<div class='col-md-3'>
 					<input required type="text" class="form-control" ng-change='searchdni(dni)' ng-model='dni'  id="nombre">
+					</div>
+
+					<!-- <div class='col-md-3'>
+					<a ng-if='dni' class='btn btn-primary' ng-click='goperson(dni)'><i class="fa fa-user" aria-hidden="true"></i>
+				<i class="fa fa-hand-o-right" aria-hidden="true"></i>
+				</a>
+					</div> -->
+
+
 				</div>
 
+				<br>
 
+				<!-- <h5 ng-if ='resultadodni.NOMBRE'>DATOS</h5>
+				<h5 ng-if ='resultadodni.NOMBRE'> {{resultadodni.NOMBRE}}</h5>
+ -->
 
+			<h5 ng-if='registros'>LLAMADAS</h5>
 			<ul class="list-group" >
 			  
 			  <li ng-click='go(x)' class="list-group-item" ng-repeat="x in registros">
 
 			  <div class='row'>
-			  <div class='col-md-2'>
-			  {{x.telefono}} 
+			  <div class='col-md-3'>
+			  <i class="fa fa-phone-square" aria-hidden="true"></i> {{x.telefono}} 
 			  </div>
 
 			  <div class='col-md-3'>
 			   {{x.contacto}}  
 			  </div>
 
-			  <div class='col-md-2'>
+			  <div class='col-md-3'>
 			  {{x.accion}}   
 			  </div>
 
@@ -100,9 +135,9 @@
 
 
 	      </div>
-	      <div class="modal-footer">
+	      <!-- <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	      </div>
+	      </div> -->
 	    </div>
 
 	  </div>

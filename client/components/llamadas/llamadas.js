@@ -31,7 +31,7 @@ function LlamadasController($scope,$location,$http){
                 $http({
 
                 method : 'POST',
-                url : host+'/llamadas.php',
+                url : host+'/dni.php',
                 data: postData,
                 headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
 
