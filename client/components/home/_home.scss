@@ -45,11 +45,11 @@
 
 .list-group-item:hover{
 
-    background: #2969a8;
+    background: $state-success-bg;
     color:#fff;
 }
 
-ul, ol {
+// ul, ol {
 
-    font-size: 12px;
-}
+//     font-size: 12px;
+// }

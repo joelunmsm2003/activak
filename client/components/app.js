@@ -18,7 +18,13 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider,$htt
 			url : '/home',
 			template: "<homecomponent></homecomponent>",
 
-		});
+		
+		})
+		.state('reporte',{
+			url : '/reporte',
+			template: "<reportecomponent></reportecomponent>",
+
+		})
 
 
 	host = 'http://localhost/calidad/controllers'

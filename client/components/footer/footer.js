@@ -9,5 +9,5 @@ angular
 
 function FooterController($scope,$location){
 
-
+console.log('878787')
 }

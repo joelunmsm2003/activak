@@ -44,8 +44,7 @@ function HomeController($scope,$location,$http){
 
         }).success(function(res){
 
-            
-        
+    
 
         })
 
@@ -66,10 +65,17 @@ function HomeController($scope,$location,$http){
 
         }).success(function(res){
 
-            $scope.agente = res[0]
+            $scope.cliente = res[0]
+
+            console.log('Cliente...',$scope.cliente)
         
 
         })
+
+
+
+
+
 
         var formData = { base: $scope.base };
 
