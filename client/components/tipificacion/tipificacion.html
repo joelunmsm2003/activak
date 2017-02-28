@@ -7,7 +7,7 @@
 									<label for="nombre">Observacion</label>
 
 									
-									<textarea  ng-change='setobservacion(baseresult.observacion)' required type="text" rows="6" class="form-control"  ng-model='baseresult.observacion'  id="nombre"></textarea> 
+									<textarea  required type="text" rows="6" class="form-control"  ng-model='baseresult.observacion'  id="nombre"></textarea> 
 								</div>
 
 
@@ -17,7 +17,7 @@
 									<label for="nombre">Contacto / {{baseresult.contacto}}</label>
 
 									
-									<select  ng-change='traeacciones(contactodata)' class='form-control' ng-options="item.id as item.nombre for item in contacto track by item.id" ng-model="contactodata"></select>
+									<select  class='form-control' ng-options="item.id as item.nombre for item in contacto track by item.id" ng-model="baseresult.contacto"></select>
 
 								</div>
 
@@ -28,9 +28,9 @@
 								<select 
 										
 										class='form-control'
-								        ng-model="acciondata" 
+								        
 								        ng-options="o.id as o.nombre for o in listaaciones" 
-								        ng-change="traeestados(acciondata)">
+								        ng-model="baseresult.accion" >
 								</select>
 
 								</div>
@@ -44,9 +44,9 @@
 
 									
 									<select    class='form-control' 
-											  ng-model="estadodata"
+											  ng-model="baseresult.accion"
 											  ng-options="p.id as p.nombre for p in estados" 
-											  ng-change="setestado(estadodata)"
+											  
 											  ></select>
 
 								</div>
@@ -78,7 +78,7 @@
 
 								   <div ng-show='muestraagendar' class="form-group">
 								        <p class="input-group">
-								          <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dt" ng-change='agendar(dt)' is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+								          <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="baseresult.fecha" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
 								          <span class="input-group-btn">
 								            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
 								          </span>
@@ -90,7 +90,7 @@
 								     <div class="form-group">
 
 
-									<div ng-show='muestraagendar && muestratime' uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div>
+									<div ng-show='muestraagendar && muestratime' uib-timepicker ng-model="mytime"  hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div>
 
 									</div>
 
@@ -98,7 +98,7 @@
 
 
 									<label for="estado"><i class="fa fa-phone-square" aria-hidden="true"></i> Telefono Adicional</label>
-									<input ng-model='phone' class='form-control' placeholder="Telefono Adicional" />
+									<input ng-model='baseresult.phone' class='form-control' placeholder="Telefono Adicional" />
 
 									</div>
 

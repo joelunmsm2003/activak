@@ -1,7 +1,3 @@
-<botoneracomponent></botoneracomponent>
-
-<logincomponent></logincomponent>
-
 
 
 <div class='container'>
@@ -84,7 +80,7 @@
 						<div class='col-md-10'>Contacto con Titular
 						</div>
 
-						<div class='col-md-2'>5
+						<div class='col-md-2'>{{totaltitular}}
 						</div>
 						</div>
 
@@ -95,7 +91,7 @@
 						<div class='col-md-10'>Contacto con Tercero
 						</div>
 
-						<div class='col-md-2'>5
+						<div class='col-md-2'>{{totaltercero}}
 						</div>
 						</div>
 
@@ -106,12 +102,12 @@
 						<div class='col-md-10'>No Contacto
 						</div>
 
-						<div class='col-md-2'>5
+						<div class='col-md-2'>{{totalnocontacto}}
 						</div>
 						</div>
 
 			  </li>
-
+<!-- 
 			   <li class="list-group-item gestionado">
 			  	
 			  			<div class='row'>	
@@ -122,11 +118,19 @@
 						</div>
 						</div>
 
-			  </li>
+			  </li> -->
 
 			  <li class="list-group-item gestionado">
 			  	
-			  			Total
+			  			 
+
+			  			<div class='row'>	
+						<div class='col-sm-12 col-md-10'>Total
+						</div>
+
+						<div class='col-sm-12 col-md-2'>{{totalgestion}}
+						</div>
+						</div>
 
 			  </li>
 			</ul>
