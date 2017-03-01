@@ -60,7 +60,28 @@ gulp.task('app-js', function() {
 		//.pipe(uglify({mangle: false}))
 		//.pipe(sourcemaps.write('.')) // Creates sourcemap for minified JS
 		//.pipe(gulp.dest('./dist/js'))
-});  
+}); 
+
+// JSHint, concat, and minify JavaScript
+gulp.task('components', function() {
+	return gulp.src([	
+		
+
+	'components/**/*.js',
+				
+	])
+		.pipe(plumber())
+		.pipe(sourcemaps.init())
+		.pipe(jshint())
+		.pipe(jshint.reporter('jshint-stylish'))
+		.pipe(concat('components.js'))
+		//.pipe(gulp.dest('./build/js'))
+		.pipe(gulp.dest('/var/www/html/calidad/js/'))
+		//.pipe(rename({suffix: '.min'}))
+		//.pipe(uglify({mangle: false}))
+		//.pipe(sourcemaps.write('.')) // Creates sourcemap for minified JS
+		//.pipe(gulp.dest('./dist/js'))
+});   
 
 // JSHint, concat, and minify JavaScript
 gulp.task('index', function() {
