@@ -15,6 +15,8 @@ urlpatterns = [
     url(r'^llamadas/(\w+)/$', 'gestion.views.llamadas'),
     url(r'^contactos/$', 'gestion.views.contactos'),
     url(r'^acciones/(\w+)/$', 'gestion.views.acciones'),
+    url(r'^estados/(\w+)/$', 'gestion.views.estados'),
+    url(r'^tipifica$', 'gestion.views.tipifica'),
 
     #Hotels
 

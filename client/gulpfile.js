@@ -30,9 +30,7 @@ gulp.task('styles', function() {
 				browsers: ['last 2 versions'],
 				cascade: false
 		}))
-
-		//.pipe(gulp.dest('./build/css/'))
-		.pipe(gulp.dest('/var/www/html/calidad/css/'))
+		.pipe(gulp.dest('./build/css/'))
 		//.pipe(rename({suffix: '.min'}))
 		//.pipe(cssnano())
 		//.pipe(sourcemaps.write('.')) // Creates sourcemaps for minified styles
@@ -44,9 +42,10 @@ gulp.task('app-js', function() {
 	return gulp.src([	
 		
 	// Grab your custom scripts
-	'services/*.js',
-	'components/app.js',
-	'components/**/*.js',
+	'app/a1/*.js',
+	'app/app.js',
+
+	'app/**/*.js',
 				
 	])
 		.pipe(plumber())
@@ -54,79 +53,12 @@ gulp.task('app-js', function() {
 		.pipe(jshint())
 		.pipe(jshint.reporter('jshint-stylish'))
 		.pipe(concat('app.js'))
-		//.pipe(gulp.dest('./build/js'))
-		.pipe(gulp.dest('/var/www/html/calidad/js/'))
-		//.pipe(rename({suffix: '.min'}))
-		//.pipe(uglify({mangle: false}))
-		//.pipe(sourcemaps.write('.')) // Creates sourcemap for minified JS
-		//.pipe(gulp.dest('./dist/js'))
-}); 
-
-// JSHint, concat, and minify JavaScript
-gulp.task('components', function() {
-	return gulp.src([	
-		
-
-	'components/**/*.js',
-				
-	])
-		.pipe(plumber())
-		.pipe(sourcemaps.init())
-		.pipe(jshint())
-		.pipe(jshint.reporter('jshint-stylish'))
-		.pipe(concat('components.js'))
-		//.pipe(gulp.dest('./build/js'))
-		.pipe(gulp.dest('/var/www/html/calidad/js/'))
-		//.pipe(rename({suffix: '.min'}))
-		//.pipe(uglify({mangle: false}))
-		//.pipe(sourcemaps.write('.')) // Creates sourcemap for minified JS
-		//.pipe(gulp.dest('./dist/js'))
-});   
-
-// JSHint, concat, and minify JavaScript
-gulp.task('index', function() {
-	return gulp.src([	
-		
-	// Grab your custom scripts
-	'index.js',
-
-				
-	])
-		.pipe(plumber())
-		.pipe(sourcemaps.init())
-		.pipe(jshint())
-		.pipe(jshint.reporter('jshint-stylish'))
-		.pipe(concat('index.js'))
-		//.pipe(gulp.dest('./build/js'))
-		.pipe(gulp.dest('/var/www/html/calidad/js/'))
+		.pipe(gulp.dest('./build/js'))
 		//.pipe(rename({suffix: '.min'}))
 		//.pipe(uglify({mangle: false}))
 		//.pipe(sourcemaps.write('.')) // Creates sourcemap for minified JS
 		//.pipe(gulp.dest('./dist/js'))
 });    
-
-// JSHint, concat, and minify JavaScript
-gulp.task('services', function() {
-	return gulp.src([	
-		
-	// Grab your custom scripts
-	'services/*.js',
-
-				
-	])
-		.pipe(plumber())
-		.pipe(sourcemaps.init())
-		.pipe(jshint())
-		.pipe(jshint.reporter('jshint-stylish'))
-		.pipe(concat('services.js'))
-		//.pipe(gulp.dest('./build/js'))
-		.pipe(gulp.dest('/var/www/html/calidad/js/'))
-		//.pipe(rename({suffix: '.min'}))
-		//.pipe(uglify({mangle: false}))
-		//.pipe(sourcemaps.write('.')) // Creates sourcemap for minified JS
-		//.pipe(gulp.dest('./dist/js'))
-});    
-
 
 // JSHint, concat, and minify JavaScript
 gulp.task('vendor-js', function() {
@@ -134,17 +66,33 @@ gulp.task('vendor-js', function() {
 		
 	// Grab your custom scripts
 
-	'./node_modules/angular/angular.js',
-    './node_modules/angular-ui-router/release/angular-ui-router.js',
-    './node_modules/ngstorage/ngStorage.js',
-    './node_modules/jquery/dist/jquery.js',
-    './node_modules/bootstrap/dist/js/bootstrap.js',
-    './node_modules/angular-translate/angular-translate.js',
-    './node_modules/angular-bootstrap/ui-bootstrap-tpls.js',
-    './node_modules/angular-route/angular-route.js',
-    './node_modules/sweetalert/dist/sweetalert.min.js',
-    './node_modules/angular-xeditable/dist/js/xeditable.js',
-    './node_modules/angular-gettext/dist/angular-gettext.min.js'
+	'./bower_components/angular/angular.js',
+    './bower_components/angular-ui-router/release/angular-ui-router.js',
+    './bower_components/ngstorage/ngStorage.js',
+    './bower_components/jquery/dist/jquery.js',
+    './bower_components/form.js',
+    './bower_components/bootstrap/dist/js/bootstrap.js',
+    './bower_components/angular-translate/angular-translate.js',
+    './bower_components/angular-animate/angular-animate.js',
+    './bower_components/angular-touch/angular-touch.js',
+    './bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+    './bower_components/angular-route/angular-route.js',
+    './bower_components/sweetalert/dist/sweetalert.min.js',
+    './bower_components/angular-scroll/angular-scroll.js',
+    './bower_components/ng-flow/dist/ng-flow-standalone.js',
+    './bower_components/flow.js/dist/flow.js',
+    './bower_components/ng-flow/dist/ng-flow.js',
+    './bower_components/angular-xeditable/dist/js/xeditable.js',
+    './bower_components/responsive-bootstrap-toolkit/src/bootstrap-toolkit.js',
+    './bower_components/bootstrap-touchspin/src/jquery.bootstrap-touchspin.js',
+    './bower_components/angular-resource/angular-resource.js',
+    './bower_components/ngmap/build/scripts/ng-map.min.js',
+    './bower_components/angular-gettext/dist/angular-gettext.min.js',
+    './bower_components/angular-dynamic-locale/dist/tmhDynamicLocale.js',
+    './bower_components/angular-un-svg/dist/un-svg.js',
+    './bower_components/angularjs-slider/dist/rzslider.js',
+    './bower_components/angular-input-stars-directive/angular-input-stars.js',
+    './bower_components/angular-sanitize/angular-sanitize.js',
 				
 	])
 		.pipe(plumber())
@@ -156,28 +104,51 @@ gulp.task('vendor-js', function() {
 		.pipe(rename({suffix: '.min'}))
 		.pipe(uglify())
 		.pipe(sourcemaps.write('.')) // Creates sourcemap for minified JS
-		//.pipe(gulp.dest('./build/js'))
-		.pipe(gulp.dest('/var/www/html/calidad/js/'))
+		.pipe(gulp.dest('./build/js'))
 }); 
 
+// Update Foundation with Bower and save to /vendor
+gulp.task('bower', function() {
+	return bower({ cmd: 'update'})
+		.pipe(gulp.dest('./bower_components/'))
+});  
 
+// Browser-Sync watch files and inject changes
+gulp.task('browsersync', function() {
+		// Watch files
+		var files = [
+			'./app/css/*.css', 
+			'./app/js/*.js',
+			'**/*.php',
+			'app/images/**/*.{png,jpg,gif,svg,webp}',
+		];
+
+		browserSync.init(files, {
+			// Replace with URL of your local site
+			proxy: "http://localhost:2000/",
+		});
+		
+		gulp.watch('./app/scss/**/*.scss', ['styles']);
+		gulp.watch('./app/js/scripts/*.js', ['site-js']).on('change', browserSync.reload);
+
+});
 
 // Watch files for changes (without Browser-Sync)
 gulp.task('watch', function() {
 
-	gulp.watch('./components/app.js', ['app-js']);
+	
+	gulp.watch('./app/app.js', ['app-js']);
 
-	gulp.watch('./components/**/*.js', ['app-js']);
+	gulp.watch('./app/**/*.js', ['app-js']);
 
-	gulp.watch('./components/**/*.html', ['html']);
+	gulp.watch('./app/**/*.html', ['html']);
 
-	gulp.watch('./components/**/*.scss', ['styles']);
+	gulp.watch('./app/**/*.scss', ['styles']);
 
 	gulp.watch('./variables.scss', ['styles']);
+
 	
 }); 
-
-
 
 // Run styles, site-js and bootstrap-js
 gulp.task('default', function() {
@@ -206,7 +177,6 @@ gulp.task('translations', function () {
 });
 
 gulp.task('html',function(){
-    gulp.src('./components/**/*.html')
-    //.pipe(gulp.dest('./build/html'));
-    .pipe(gulp.dest('/var/www/html/calidad/html'));
+    gulp.src('./app/**/*.html')
+    .pipe(gulp.dest('./build/html'));
 });

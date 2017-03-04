@@ -55,10 +55,9 @@
 @import "bootstrap/utilities";
 @import "bootstrap/responsive-utilities";
 
-// Componentes del sistema
 
-@import "components/footer/footer";
-@import "components/formulario/formulario";
-@import "components/header/header";
-@import "components/home/home";
-@import "components/reporte/reporte";
+@import "app/home/home";
+@import "app/formulario/formulario";
+@import "app/signup/signup";
+@import "app/redirect/redirect";
+@import "app/perfil/perfil";

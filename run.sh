@@ -1,6 +1,13 @@
 killall -9 node
+killall 9 python
 
-
-cd /home/xiencias02/proyecto/dni/client
+cd ./client
 gulp watch&
 
+cd ../server
+npm start&
+
+cd ../apis
+python manage.py runserver&
+
+subl
