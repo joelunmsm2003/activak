@@ -51,6 +51,12 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider,$htt
 
 		})
 
+		.state('reporte',{
+			url : '/reporte',
+			template: "<reportecomponent></reportecomponent>",
+
+		})
+
 		.state('home',{
 			url : '/home',
 			template: "<homecomponent></homecomponent>",
@@ -58,11 +64,12 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider,$htt
 		});
 
 
-		$urlRouterProvider.otherwise('/home');
+		$urlRouterProvider.otherwise('/error');
 
 
 	host = 'http://localhost:8000/'
 
+	host_primary = 'http://localhost:8080/'
 
 	$locationProvider.html5Mode(true);
 

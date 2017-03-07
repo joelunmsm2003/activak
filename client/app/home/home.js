@@ -10,7 +10,7 @@ angular
 
 
 
-function HomeController($scope,$location,$http){
+function HomeController($scope,$location,$http,LlamadaService){
 
         console.log('URL...',$location.url())
 
@@ -20,55 +20,26 @@ function HomeController($scope,$location,$http){
 
         console.log('url.....',url.split('&')[0].split('=')[1])
 
+        console.log('urlaaa.',url.split('&nomagente=')[(url.split('&nomagente=')).length-1])
+
         dni = url.split('&')[0].split('=')[1]
 
         $scope.base = url.split('&')[1].split('=')[1]
 
         $scope.id_agente = url.split('&')[2].split('=')[1]
 
-        $scope.nomagente = url.split('&')[3].split('=')[1]
+        $scope.nomagente = url.split('&nomagente=')[(url.split('&nomagente=')).length-1]
 
-        console.log('Request.......',dni,$scope.base,$scope.agente,$scope.nomagente)
-
-        var formData = { agente: $scope.agente ,base:$scope.base,nomagente:$scope.nomagente};
-
-        var postData = 'myData='+JSON.stringify(formData);
-
-
-        $http({
-
-        method : 'POST',
-        url : host+'/agentesave.php',
-        data: postData,
-        headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
-
-        }).success(function(res){
-
-    
-
+        $http.get(host+'saveagente/'+$scope.nomagente+'/'+$scope.base).success(function(data) {
+           
         })
 
 
+        LlamadaService.cliente(dni).then(function(data) {
 
+            console.log('Datos del dni',data)
 
-        var formData = { dni: dni };
-
-        var postData = 'myData='+JSON.stringify(formData);
-
-
-        $http({
-
-        method : 'POST',
-        url : host+'/gestion.php',
-        data: postData,
-        headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
-
-        }).success(function(res){
-
-            $scope.cliente = res[0]
-
-            console.log('Cliente...',$scope.cliente)
-        
+            $scope.cliente = data[0]
 
         })
 
@@ -106,51 +77,15 @@ function HomeController($scope,$location,$http){
         // }
 
 
-        $scope.searchdni =function(data){
+        $scope.searchdni =function(dni){
 
 
-                console.log('dni....',data)
 
-                var formData = { dni: dni };
+                LlamadaService.listar(dni).then(function(data) {
 
-                var postData = 'myData='+JSON.stringify(formData);
-
-
-                $http({
-
-                method : 'POST',
-                url : host+'/gestion.php',
-                data: postData,
-                headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
-
-                }).success(function(res){
-
-                $scope.resultadodni = res[0]
-
+                $scope.registros = data
 
                 })
-
-
-                var formData = { dni: data };
-
-                var postData = 'myData='+JSON.stringify(formData);
-
-
-                $http({
-
-                method : 'POST',
-                url : host+'/dni.php',
-                data: postData,
-                headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
-
-                }).success(function(res){
-
-                    $scope.registros = res
-
-                    console.log('dnis.....',$scope.registros)
-
-                })
-
 
         }
 
@@ -162,49 +97,34 @@ function HomeController($scope,$location,$http){
 
                $('#myModal').modal('hide');
 
-               
+               //$location.path('/home/'+'?dni='+data.cliente+'&'+'base='+data.id_orig_base+'&agente='+$scope.id_agente+'&nomagente='+$scope.nomagente)
 
-               
-            //window.location.href='http://192.168.40.4/calidad/#/home?dni='+data.cliente+'&'+'base='+data.id_orig_base+'&agente=17402130&nomagente=DeisyH'
+            window.location.href=host_primary+'/home?dni='+data.cliente+'&'+'base='+data.id_orig_base+'&agente='+$scope.id_agente+'&nomagente='+$scope.nomagente
 
-            window.location.href=host_primary+'/calidad/#/home?dni='+data.cliente+'&'+'base='+data.id_orig_base+'&agente='+$scope.id_agente+'&nomagente='+$scope.nomagente
-
-
-            location.reload()
+            //location.reload()
+           
         }
 
 
-          ctrl.deleteHero = function(hero) {
+          ctrl.deleteHero = function(fono) {
 
-            console.log('heroeeeee',hero)
-
-            var formData = { telefono: hero };
-
-            var postData = 'myData='+JSON.stringify(formData);
+      
 
 
-            $http({
+            LlamadaService.traebase(fono).then(function(res) {
 
-            method : 'POST',
-            url : host+'/traebase.php',
-            data: postData,
-            headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
-
-            }).success(function(res){
-
-                console.log('Llamar denuevo-',res[0].id_orig_base);
-
-                url = '#/home?dni='+res[0].cliente+'&'+'base='+res[0].id_orig_base+'&agente='+$scope.id_agente+'&nomagente='+$scope.nomagente
+                console.log('trae..base...',res)
 
                 $scope.pasabase = res[0]
 
-                window.location.href='/calidad/#/home?dni='+res[0].cliente+'&'+'base='+$scope.pasabase.id_orig_base+'&agente='+$scope.id_agente+'&nomagente='+$scope.nomagente
-   
-                location.reload()
+                url = host_primary+'/home?dni='+res[0].cliente+'&'+'base='+res[0].id_orig_base+'&agente='+$scope.id_agente+'&nomagente='+$scope.nomagente
+ 
+                window.location.href= url
+                
+                })
 
-            })
 
-            //$location.path(hero)
+         
 
             
 

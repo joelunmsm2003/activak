@@ -16,7 +16,7 @@ function ReporteController($scope,$location,$http){
 	function gestiontotal(){
 
 				
-			    $http.get(host+"/gestionado.php").success(function(response) {
+			    $http.get(host+"/gestionado").success(function(response) {
 
 		     	console.log('Respuesta del BAckend...',response)
 

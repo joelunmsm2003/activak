@@ -5,13 +5,26 @@ function TipificaService ($http,$q,$log,$localStorage) {
         contacto: contacto,
         accion:accion,
         estado:estado,
-        tipifica:tipifica
+        tipifica:tipifica,
+        acciones:acciones,
+        todosestados:todosestados
+
+
 
     }
 
+    function todosestados(){
 
+        var def = $q.defer();
 
+        $http.get(host+'todosestados').success(function(data) {
 
+        def.resolve(data);
+        
+        })
+
+        return def.promise;
+    }
 
 
     function tipifica(data){
@@ -38,7 +51,6 @@ function TipificaService ($http,$q,$log,$localStorage) {
 
     function contacto() {
 
-
             var def = $q.defer();
 
             console.log('jdjdjdjdj',host+'contactos')
@@ -57,6 +69,20 @@ function TipificaService ($http,$q,$log,$localStorage) {
             var def = $q.defer();
 
             $http.get(host+'acciones/'+contacto).success(function(data) {
+
+                    def.resolve(data);
+                })
+               
+            return def.promise;
+        }
+
+
+     function acciones() {
+
+
+            var def = $q.defer();
+
+            $http.get(host+'listaacciones/').success(function(data) {
 
                     def.resolve(data);
                 })

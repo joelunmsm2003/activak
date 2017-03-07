@@ -10,7 +10,7 @@ angular
 
 
 
-function FormularioController($scope,$location,$http){
+function FormularioController($scope,$location,$http,LlamadaService){
 
         var ctrl = this;
 
@@ -29,28 +29,17 @@ function FormularioController($scope,$location,$http){
 
         $scope.nomagente = url.split('&')[3].split('=')[1]
 
-        var formData = { dni: dni };
-
-        var postData = 'myData='+JSON.stringify(formData);
 
 
-        $http({
+        LlamadaService.cliente(dni).then(function(data) {
 
-        method : 'POST',
-        url : host+'/gestion.php',
-        data: postData,
-        headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
+            console.log('Datos del dni',data)
 
-        }).success(function(res){
-
-            console.log('Cliente-----',res);
-
-            $scope.agente = res[0]
-
-
+            $scope.cliente = data[0]
 
         })
 
+     
         $scope.llamar = function(data){
 
             ctrl.onDelete({hero: data});

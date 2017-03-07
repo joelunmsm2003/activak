@@ -1,6 +1,9 @@
 function LlamadaService ($http,$q,$log,$localStorage) {  
     return {
-        listar: listar
+        listar: listar,
+        base:base,
+        cliente:cliente,
+        traebase:traebase
 
     }
 
@@ -11,9 +14,6 @@ function LlamadaService ($http,$q,$log,$localStorage) {
         console.log('Creando...',data,photo)
 
         var file = photo;
-
-
-
         var defered = $q.defer();
         var promise = defered.promise;
 
@@ -28,25 +28,28 @@ function LlamadaService ($http,$q,$log,$localStorage) {
         console.log('Kine.....',data)
 
 
-                /// Agregando Foto para esta kine
+            /// Agregando Foto para esta kine
 
-                    var fd = new FormData();
+            var fd = new FormData();
 
-                    fd.append('file', file);
+            fd.append('file', file);
 
-                    fd.append('id', data);
+            fd.append('id', data);
 
-                    $http.post(host+'uploadphoto/', fd, {
-                    transformRequest: angular.identity,
-                    headers: {'Content-Type': undefined}
-                    })
+            $http.post(host+'uploadphoto/', fd, {
+                
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined
 
-                    .success(function(data){
+            }
 
-                        console.log(data)
+            })
 
+            .success(function(data){
 
-                    })
+                console.log(data)
+
+            })
 
 
         return promise;
@@ -70,6 +73,49 @@ function LlamadaService ($http,$q,$log,$localStorage) {
                
             return def.promise;
         }
+
+
+        function traebase(fono) {
+
+            var def = $q.defer();
+
+            $http.get(host+'traebase/'+fono).success(function(data) {
+
+                    def.resolve(data);
+                })
+               
+            return def.promise;
+        }
+
+
+
+    function base(id) {
+
+
+            var def = $q.defer();
+
+            $http.get(host+'base/'+id).success(function(data) {
+
+                    def.resolve(data);
+                })
+               
+            return def.promise;
+        }
+
+      function cliente(dni) {
+
+
+        console.log('DNI...',dni)
+
+        var def = $q.defer();
+
+        $http.get(host+'cliente/'+dni).success(function(data) {
+
+                def.resolve(data);
+            })
+           
+        return def.promise;
+    }
 
 
 

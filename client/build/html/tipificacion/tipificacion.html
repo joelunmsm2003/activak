@@ -1,4 +1,4 @@
-	<legend>TIPIFICACION {{baseresult.telefono}}</legend>
+	<legend>TIPIFICACION {{resultado.telefono}}</legend>
 
 								
 								<form >
@@ -14,7 +14,7 @@
 								<div class="form-group">
 
 
-									<label for="nombre">Contacto / {{baseresult.contacto}}</label>
+									<label for="nombre">Contacto </label>
 
 									
 									<select ng-change='traeacciones(resultado.contacto)' class='form-control' ng-options="item.id as item.nombre for item in contacto track by item.id" ng-model="resultado.contacto"></select>
@@ -23,7 +23,7 @@
 
 								<div class="form-group">
 
-								<label for="accion">Accion / {{baseresult.accion}}  </label>
+								<label for="accion">Accion  </label>
 								
 								<select 
 										
@@ -40,31 +40,19 @@
 
 								<div class="form-group">
 
-									<label for="estado">Estado / {{baseresult.estado}}   </label>
+									<label for="estado">Estado    </label>
 
 									
 									<select    class='form-control' 
-											  ng-model="resultado.estado"
-											  ng-options="p.estado as p.estado__nombre for p in estados" 
 											  
+											  ng-options="p.estado as p.estado__nombre for p in estados" 
+											  ng-model="resultado.estado"
 											  ></select>
 
 								</div>
 
 
 								
-									<div class="form-group"> 
-
-										<label >Fecha Agenda: {{baseresult.fagenda}}</label>
-
-										<div class="btn-group">
-										  <button type="button" class="btn btn-default" ng-click='muestraagendar=true;muestrafono=false'>Agendar</button>
-										  <button type="button" ng-click='muestrafono=true;muestraagendar=false' class="btn btn-default">Agregar Telefono</button>
-									
-										</div>
-
-									</div>
-
 
 
 
@@ -73,12 +61,12 @@
 
 									<div class="form-group">
 
-									<label ng-show='muestraagendar' for="estado"><i class="fa fa-calendar" aria-hidden="true"></i> Agendar</label>
+									<label  for="estado"><i class="fa fa-calendar" aria-hidden="true"></i> Agendar {{resultado.fagenda}}</label>
 
 
-								   <div ng-show='muestraagendar' class="form-group">
+								   <div class="form-group">
 								        <p class="input-group">
-								          <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="baseresult.fecha" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
+								          <input type="text" class="form-control" uib-datepicker-popup="{{format}}"  ng-model="resultado.fecha" is-open="popup1.opened" datepicker-options="dateOptions" ng-required="true" close-text="Close" alt-input-formats="altInputFormats" />
 								          <span class="input-group-btn">
 								            <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
 								          </span>
@@ -90,19 +78,19 @@
 								     <div class="form-group">
 
 
-									<div ng-show='muestraagendar && muestratime' uib-timepicker ng-model="mytime"  hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div>
+									<div uib-timepicker  ng-model="resultado.mytime"  hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div>
 
 									</div>
 
-									<div ng-show='muestrafono' class="form-group">
+									<div  class="form-group">
 
 
 									<label for="estado"><i class="fa fa-phone-square" aria-hidden="true"></i> Telefono Adicional</label>
-									<input ng-model='baseresult.phone' class='form-control' placeholder="Telefono Adicional" />
+									<input ng-model='resultado.tadicional' class='form-control' placeholder="Telefono Adicional" />
 
 									</div>
 
-									<a class='btn btn-primary' ng-click='tipifica(resultado)'>Tipificar</a>
+									<a class='btn btn-primary' ng-click='tipifica(resultado)'>Guardar</a>
 
 
 									</form>

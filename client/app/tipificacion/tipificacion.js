@@ -14,119 +14,87 @@ angular
 
 
 
-function TipificacionController($scope,$location,$http,$log,TipificaService){
+function TipificacionController($filter,$scope,$location,$http,$log,TipificaService,LlamadaService){
 
 
-    ctrl = this
+      ctrl = this
 
-    url = $location.url()
+      url = $location.url()
 
-    $scope.base = url.split('&')[1].split('=')[1]
+      $scope.base = url.split('&')[1].split('=')[1]
 
+      $scope.resultado={}
 
+      TipificaService.contacto().then(function(data) { $scope.contacto = data })
 
-    TipificaService.contacto().then(function(data) {
+      TipificaService.todosestados().then(function(data) { $scope.estados = data  })
 
-    $scope.contacto = data
+      LlamadaService.base($scope.base).then(function(data) {
 
-    })
+        $scope.resultado = data[0]
 
+        $scope.resultado.contacto = $filter('filter')($scope.contacto,{'id' : $scope.resultado.contacto})[0]     
 
+        //console.log('dhhd',$scope.todosestados)
 
+        //$scope.resultado.estado = $filter('filter')($scope.todosestados,{'id' : $scope.resultado.estado})[0]     
 
+      
+      })
 
+      TipificaService.acciones().then(function(data) {
 
+      console.log('acciones',data)
 
-    var formData = { base: $scope.base };
+      $scope.listaaciones = data
 
-    var postData = 'myData='+JSON.stringify(formData);
-
-    $http({
-
-    method : 'POST',
-    url : host+'/obtienebase.php',
-    data: postData,
-    headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
-
-    }).success(function(res){
-
-
-            $scope.baseresult = res[0]
-
-            $http.get(host+"/contacto.php/").success(function(data) {
-
-                  $scope.contacto = data
-    
-            });
-
-
-            // console.log('contacto',$scope.baseresult.contacto)
-  
-    })
-
-
-
-    $scope.muestraagendar= false
-
-
-
-
-    $scope.tipifica =function(data){
-
-      data.base = $scope.base
-
-      console.log(data)
-
-
-      TipificaService.tipifica(data, function(response) {
-
-      console.log('iojjkjkjk',response);
+      console.log('acciones',$scope.resultado.accion)
 
       })
 
+      $scope.muestraagendar= false
 
-    }
+      $scope.tipifica =function(data){
 
+            data.base = $scope.base
 
-
-    
-
-
-
-
-      
-
-        $scope.getestados =function(data){
+            TipificaService.tipifica(data, function(response) {
 
 
-      
+              swal({
+              title: "Sweet!",
+              text: "Here's a custom image.",
+              imageUrl: "images/thumbs-up.jpg"
+            });
 
-                TipificaService.estado(data).then(function(data) {
+            })
 
-                $scope.estados = data
-
-                console.log('Acciones...',data)
-
-                })
-
-
-        }
+      }
 
 
-            $scope.traeacciones =function(data){
 
 
-        
-                      
-                TipificaService.accion(data).then(function(data) {
+      $scope.getestados =function(data){
 
-                $scope.listaaciones = data
+            TipificaService.estado(data).then(function(data) {
 
-             
+            $scope.estados = data
 
-                })
+            })
+      }
 
-            } 
+
+      $scope.traeacciones =function(data){
+
+        TipificaService.accion(data).then(function(data) {
+
+        $scope.listaaciones = data
+
+        console.log('Acciones..',data)
+
+        })
+
+      } 
 
             
 // Datetime
@@ -235,36 +203,7 @@ function TipificacionController($scope,$location,$http,$log,TipificaService){
 
   $scope.update()
 
-  $scope.changed = function () {
- 
-     console.log('FEcha...',$scope.dt.getDate(),$scope.mytime)
 
-
-                fagenda = JSON.stringify($scope.dt).split(':')[0].split('T')[0].split('"')[1]+' '+$scope.mytime.getHours()+':'+$scope.mytime.getMinutes()
-
-                console.log('Agenda...',fagenda) 
-
-
-                var formData = { fagenda: fagenda,base:$scope.base };
-
-                var postData = 'myData='+JSON.stringify(formData);
-
-                $http({
-
-                method : 'POST',
-                url : host+'/agendar.php',
-                data: postData,
-                headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
-
-                }).success(function(res){
-
-                    console.log('llamadas..ooo..',res);
-
-                    $scope.llamadas = res
-
-
-                })
-  };
 
   $scope.clear = function() {
     $scope.mytime = null;

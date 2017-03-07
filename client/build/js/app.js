@@ -1,6 +1,9 @@
 function LlamadaService ($http,$q,$log,$localStorage) {  
     return {
-        listar: listar
+        listar: listar,
+        base:base,
+        cliente:cliente,
+        traebase:traebase
 
     }
 
@@ -11,9 +14,6 @@ function LlamadaService ($http,$q,$log,$localStorage) {
         console.log('Creando...',data,photo)
 
         var file = photo;
-
-
-
         var defered = $q.defer();
         var promise = defered.promise;
 
@@ -28,25 +28,28 @@ function LlamadaService ($http,$q,$log,$localStorage) {
         console.log('Kine.....',data)
 
 
-                /// Agregando Foto para esta kine
+            /// Agregando Foto para esta kine
 
-                    var fd = new FormData();
+            var fd = new FormData();
 
-                    fd.append('file', file);
+            fd.append('file', file);
 
-                    fd.append('id', data);
+            fd.append('id', data);
 
-                    $http.post(host+'uploadphoto/', fd, {
-                    transformRequest: angular.identity,
-                    headers: {'Content-Type': undefined}
-                    })
+            $http.post(host+'uploadphoto/', fd, {
+                
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined
 
-                    .success(function(data){
+            }
 
-                        console.log(data)
+            })
 
+            .success(function(data){
 
-                    })
+                console.log(data)
+
+            })
 
 
         return promise;
@@ -72,6 +75,49 @@ function LlamadaService ($http,$q,$log,$localStorage) {
         }
 
 
+        function traebase(fono) {
+
+            var def = $q.defer();
+
+            $http.get(host+'traebase/'+fono).success(function(data) {
+
+                    def.resolve(data);
+                })
+               
+            return def.promise;
+        }
+
+
+
+    function base(id) {
+
+
+            var def = $q.defer();
+
+            $http.get(host+'base/'+id).success(function(data) {
+
+                    def.resolve(data);
+                })
+               
+            return def.promise;
+        }
+
+      function cliente(dni) {
+
+
+        console.log('DNI...',dni)
+
+        var def = $q.defer();
+
+        $http.get(host+'cliente/'+dni).success(function(data) {
+
+                def.resolve(data);
+            })
+           
+        return def.promise;
+    }
+
+
 
 }
 
@@ -85,13 +131,26 @@ function TipificaService ($http,$q,$log,$localStorage) {
         contacto: contacto,
         accion:accion,
         estado:estado,
-        tipifica:tipifica
+        tipifica:tipifica,
+        acciones:acciones,
+        todosestados:todosestados
+
+
 
     }
 
+    function todosestados(){
 
+        var def = $q.defer();
 
+        $http.get(host+'todosestados').success(function(data) {
 
+        def.resolve(data);
+        
+        })
+
+        return def.promise;
+    }
 
 
     function tipifica(data){
@@ -118,7 +177,6 @@ function TipificaService ($http,$q,$log,$localStorage) {
 
     function contacto() {
 
-
             var def = $q.defer();
 
             console.log('jdjdjdjdj',host+'contactos')
@@ -137,6 +195,20 @@ function TipificaService ($http,$q,$log,$localStorage) {
             var def = $q.defer();
 
             $http.get(host+'acciones/'+contacto).success(function(data) {
+
+                    def.resolve(data);
+                })
+               
+            return def.promise;
+        }
+
+
+     function acciones() {
+
+
+            var def = $q.defer();
+
+            $http.get(host+'listaacciones/').success(function(data) {
 
                     def.resolve(data);
                 })
@@ -335,6 +407,12 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider,$htt
 
 		})
 
+		.state('reporte',{
+			url : '/reporte',
+			template: "<reportecomponent></reportecomponent>",
+
+		})
+
 		.state('home',{
 			url : '/home',
 			template: "<homecomponent></homecomponent>",
@@ -342,11 +420,12 @@ function routesConfig($stateProvider, $urlRouterProvider, $locationProvider,$htt
 		});
 
 
-		$urlRouterProvider.otherwise('/home');
+		$urlRouterProvider.otherwise('/error');
 
 
 	host = 'http://localhost:8000/'
 
+	host_primary = 'http://localhost:8080/'
 
 	$locationProvider.html5Mode(true);
 
@@ -418,32 +497,6 @@ function AndyController(){
 
 angular
   .module('app')
-  .component('anunciocomponent', {
-    templateUrl: '../html/anuncio/anuncio.html',
-    controller: AnuncioController
-  });
-
-
-
-function AnuncioController($scope,UserService,$localStorage){
-
-
-	console.log('$localStorage',$localStorage)
-
-
-	
-
-		console.log(UserService.perfil())
-	
-
-
-
-
-
-}
-
-angular
-  .module('app')
   .component('colecomponent', {
     templateUrl: 'html/colegio/colegio.html',
     controller: ColeController
@@ -469,7 +522,7 @@ angular
 
 
 
-function FormularioController($scope,$location,$http){
+function FormularioController($scope,$location,$http,LlamadaService){
 
         var ctrl = this;
 
@@ -488,28 +541,17 @@ function FormularioController($scope,$location,$http){
 
         $scope.nomagente = url.split('&')[3].split('=')[1]
 
-        var formData = { dni: dni };
-
-        var postData = 'myData='+JSON.stringify(formData);
 
 
-        $http({
+        LlamadaService.cliente(dni).then(function(data) {
 
-        method : 'POST',
-        url : host+'/gestion.php',
-        data: postData,
-        headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
+            console.log('Datos del dni',data)
 
-        }).success(function(res){
-
-            console.log('Cliente-----',res);
-
-            $scope.agente = res[0]
-
-
+            $scope.cliente = data[0]
 
         })
 
+     
         $scope.llamar = function(data){
 
             ctrl.onDelete({hero: data});
@@ -627,7 +669,7 @@ angular
 
 
 
-function HomeController($scope,$location,$http){
+function HomeController($scope,$location,$http,LlamadaService){
 
         console.log('URL...',$location.url())
 
@@ -637,55 +679,26 @@ function HomeController($scope,$location,$http){
 
         console.log('url.....',url.split('&')[0].split('=')[1])
 
+        console.log('urlaaa.',url.split('&nomagente=')[(url.split('&nomagente=')).length-1])
+
         dni = url.split('&')[0].split('=')[1]
 
         $scope.base = url.split('&')[1].split('=')[1]
 
         $scope.id_agente = url.split('&')[2].split('=')[1]
 
-        $scope.nomagente = url.split('&')[3].split('=')[1]
+        $scope.nomagente = url.split('&nomagente=')[(url.split('&nomagente=')).length-1]
 
-        console.log('Request.......',dni,$scope.base,$scope.agente,$scope.nomagente)
-
-        var formData = { agente: $scope.agente ,base:$scope.base,nomagente:$scope.nomagente};
-
-        var postData = 'myData='+JSON.stringify(formData);
-
-
-        $http({
-
-        method : 'POST',
-        url : host+'/agentesave.php',
-        data: postData,
-        headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
-
-        }).success(function(res){
-
-    
-
+        $http.get(host+'saveagente/'+$scope.nomagente+'/'+$scope.base).success(function(data) {
+           
         })
 
 
+        LlamadaService.cliente(dni).then(function(data) {
 
+            console.log('Datos del dni',data)
 
-        var formData = { dni: dni };
-
-        var postData = 'myData='+JSON.stringify(formData);
-
-
-        $http({
-
-        method : 'POST',
-        url : host+'/gestion.php',
-        data: postData,
-        headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
-
-        }).success(function(res){
-
-            $scope.cliente = res[0]
-
-            console.log('Cliente...',$scope.cliente)
-        
+            $scope.cliente = data[0]
 
         })
 
@@ -723,51 +736,15 @@ function HomeController($scope,$location,$http){
         // }
 
 
-        $scope.searchdni =function(data){
+        $scope.searchdni =function(dni){
 
 
-                console.log('dni....',data)
 
-                var formData = { dni: dni };
+                LlamadaService.listar(dni).then(function(data) {
 
-                var postData = 'myData='+JSON.stringify(formData);
-
-
-                $http({
-
-                method : 'POST',
-                url : host+'/gestion.php',
-                data: postData,
-                headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
-
-                }).success(function(res){
-
-                $scope.resultadodni = res[0]
-
+                $scope.registros = data
 
                 })
-
-
-                var formData = { dni: data };
-
-                var postData = 'myData='+JSON.stringify(formData);
-
-
-                $http({
-
-                method : 'POST',
-                url : host+'/dni.php',
-                data: postData,
-                headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
-
-                }).success(function(res){
-
-                    $scope.registros = res
-
-                    console.log('dnis.....',$scope.registros)
-
-                })
-
 
         }
 
@@ -779,49 +756,34 @@ function HomeController($scope,$location,$http){
 
                $('#myModal').modal('hide');
 
-               
+               //$location.path('/home/'+'?dni='+data.cliente+'&'+'base='+data.id_orig_base+'&agente='+$scope.id_agente+'&nomagente='+$scope.nomagente)
 
-               
-            //window.location.href='http://192.168.40.4/calidad/#/home?dni='+data.cliente+'&'+'base='+data.id_orig_base+'&agente=17402130&nomagente=DeisyH'
+            window.location.href=host_primary+'/home?dni='+data.cliente+'&'+'base='+data.id_orig_base+'&agente='+$scope.id_agente+'&nomagente='+$scope.nomagente
 
-            window.location.href=host_primary+'/calidad/#/home?dni='+data.cliente+'&'+'base='+data.id_orig_base+'&agente='+$scope.id_agente+'&nomagente='+$scope.nomagente
-
-
-            location.reload()
+            //location.reload()
+           
         }
 
 
-          ctrl.deleteHero = function(hero) {
+          ctrl.deleteHero = function(fono) {
 
-            console.log('heroeeeee',hero)
-
-            var formData = { telefono: hero };
-
-            var postData = 'myData='+JSON.stringify(formData);
+      
 
 
-            $http({
+            LlamadaService.traebase(fono).then(function(res) {
 
-            method : 'POST',
-            url : host+'/traebase.php',
-            data: postData,
-            headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
-
-            }).success(function(res){
-
-                console.log('Llamar denuevo-',res[0].id_orig_base);
-
-                url = '#/home?dni='+res[0].cliente+'&'+'base='+res[0].id_orig_base+'&agente='+$scope.id_agente+'&nomagente='+$scope.nomagente
+                console.log('trae..base...',res)
 
                 $scope.pasabase = res[0]
 
-                window.location.href='/calidad/#/home?dni='+res[0].cliente+'&'+'base='+$scope.pasabase.id_orig_base+'&agente='+$scope.id_agente+'&nomagente='+$scope.nomagente
-   
-                location.reload()
+                url = host_primary+'/home?dni='+res[0].cliente+'&'+'base='+res[0].id_orig_base+'&agente='+$scope.id_agente+'&nomagente='+$scope.nomagente
+ 
+                window.location.href= url
+                
+                })
 
-            })
 
-            //$location.path(hero)
+         
 
             
 
@@ -831,6 +793,32 @@ function HomeController($scope,$location,$http){
 
           };
 
+
+
+
+
+
+}
+
+angular
+  .module('app')
+  .component('anunciocomponent', {
+    templateUrl: '../html/anuncio/anuncio.html',
+    controller: AnuncioController
+  });
+
+
+
+function AnuncioController($scope,UserService,$localStorage){
+
+
+	console.log('$localStorage',$localStorage)
+
+
+	
+
+		console.log(UserService.perfil())
+	
 
 
 
@@ -1107,7 +1095,7 @@ function ReporteController($scope,$location,$http){
 	function gestiontotal(){
 
 				
-			    $http.get(host+"/gestionado.php").success(function(response) {
+			    $http.get(host+"/gestionado").success(function(response) {
 
 		     	console.log('Respuesta del BAckend...',response)
 
@@ -1232,119 +1220,87 @@ angular
 
 
 
-function TipificacionController($scope,$location,$http,$log,TipificaService){
+function TipificacionController($filter,$scope,$location,$http,$log,TipificaService,LlamadaService){
 
 
-    ctrl = this
+      ctrl = this
 
-    url = $location.url()
+      url = $location.url()
 
-    $scope.base = url.split('&')[1].split('=')[1]
+      $scope.base = url.split('&')[1].split('=')[1]
 
+      $scope.resultado={}
 
+      TipificaService.contacto().then(function(data) { $scope.contacto = data })
 
-    TipificaService.contacto().then(function(data) {
+      TipificaService.todosestados().then(function(data) { $scope.estados = data  })
 
-    $scope.contacto = data
+      LlamadaService.base($scope.base).then(function(data) {
 
-    })
+        $scope.resultado = data[0]
 
+        $scope.resultado.contacto = $filter('filter')($scope.contacto,{'id' : $scope.resultado.contacto})[0]     
 
+        //console.log('dhhd',$scope.todosestados)
 
+        //$scope.resultado.estado = $filter('filter')($scope.todosestados,{'id' : $scope.resultado.estado})[0]     
 
+      
+      })
 
+      TipificaService.acciones().then(function(data) {
 
+      console.log('acciones',data)
 
-    var formData = { base: $scope.base };
+      $scope.listaaciones = data
 
-    var postData = 'myData='+JSON.stringify(formData);
-
-    $http({
-
-    method : 'POST',
-    url : host+'/obtienebase.php',
-    data: postData,
-    headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
-
-    }).success(function(res){
-
-
-            $scope.baseresult = res[0]
-
-            $http.get(host+"/contacto.php/").success(function(data) {
-
-                  $scope.contacto = data
-    
-            });
-
-
-            // console.log('contacto',$scope.baseresult.contacto)
-  
-    })
-
-
-
-    $scope.muestraagendar= false
-
-
-
-
-    $scope.tipifica =function(data){
-
-      data.base = $scope.base
-
-      console.log(data)
-
-
-      TipificaService.tipifica(data, function(response) {
-
-      console.log('iojjkjkjk',response);
+      console.log('acciones',$scope.resultado.accion)
 
       })
 
+      $scope.muestraagendar= false
 
-    }
+      $scope.tipifica =function(data){
 
+            data.base = $scope.base
 
-
-    
-
-
-
-
-      
-
-        $scope.getestados =function(data){
+            TipificaService.tipifica(data, function(response) {
 
 
-      
+              swal({
+              title: "Sweet!",
+              text: "Here's a custom image.",
+              imageUrl: "images/thumbs-up.jpg"
+            });
 
-                TipificaService.estado(data).then(function(data) {
+            })
 
-                $scope.estados = data
-
-                console.log('Acciones...',data)
-
-                })
-
-
-        }
+      }
 
 
-            $scope.traeacciones =function(data){
 
 
-        
-                      
-                TipificaService.accion(data).then(function(data) {
+      $scope.getestados =function(data){
 
-                $scope.listaaciones = data
+            TipificaService.estado(data).then(function(data) {
 
-             
+            $scope.estados = data
 
-                })
+            })
+      }
 
-            } 
+
+      $scope.traeacciones =function(data){
+
+        TipificaService.accion(data).then(function(data) {
+
+        $scope.listaaciones = data
+
+        console.log('Acciones..',data)
+
+        })
+
+      } 
 
             
 // Datetime
@@ -1453,36 +1409,7 @@ function TipificacionController($scope,$location,$http,$log,TipificaService){
 
   $scope.update()
 
-  $scope.changed = function () {
- 
-     console.log('FEcha...',$scope.dt.getDate(),$scope.mytime)
 
-
-                fagenda = JSON.stringify($scope.dt).split(':')[0].split('T')[0].split('"')[1]+' '+$scope.mytime.getHours()+':'+$scope.mytime.getMinutes()
-
-                console.log('Agenda...',fagenda) 
-
-
-                var formData = { fagenda: fagenda,base:$scope.base };
-
-                var postData = 'myData='+JSON.stringify(formData);
-
-                $http({
-
-                method : 'POST',
-                url : host+'/agendar.php',
-                data: postData,
-                headers : {'Content-Type': 'application/x-www-form-urlencoded'}  
-
-                }).success(function(res){
-
-                    console.log('llamadas..ooo..',res);
-
-                    $scope.llamadas = res
-
-
-                })
-  };
 
   $scope.clear = function() {
     $scope.mytime = null;
